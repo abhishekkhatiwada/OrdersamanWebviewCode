@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,8 +53,30 @@ class _WebLoadPageState extends State<WebLoadPage> {
       return;
     }
 
-    // Get FCM token
-    final token = await FirebaseMessaging.instance.getToken();
+    String? token;
+
+    if (Platform.isIOS) {
+      // Request push notification permission first
+      final settings = await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        try {
+          token = await FirebaseMessaging.instance.getToken();
+        } catch (e) {
+          CustomLog.error("iOS FCM token error: $e");
+        }
+      } else {
+        CustomLog.warning("Push notifications not allowed on iOS");
+      }
+    } else {
+      // Android (no APNs required)
+      token = await FirebaseMessaging.instance.getToken();
+    }
+
     setState(() {
       _fcmToken = token;
       _hasInternet = true;
@@ -96,6 +120,22 @@ class _WebLoadPageState extends State<WebLoadPage> {
                       '${AppConfig.current.baseUrl}/?firebaseToken=$_fcmToken',
                     ),
                   ),
+                  shouldOverrideUrlLoading: (
+                    controller,
+                    navigationAction,
+                  ) async {
+                    final uri = navigationAction.request.url;
+
+                    if (uri != null && uri.scheme == "tel") {
+                      // open dialer
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      }
+                      return NavigationActionPolicy.CANCEL;
+                    }
+
+                    return NavigationActionPolicy.ALLOW;
+                  },
                   initialSettings: InAppWebViewSettings(
                     javaScriptEnabled: true,
                     geolocationEnabled: true,
