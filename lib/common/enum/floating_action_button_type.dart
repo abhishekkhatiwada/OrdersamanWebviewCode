@@ -1,0 +1,1 @@
+enum FloatingActionButtonType { button, iconButton }

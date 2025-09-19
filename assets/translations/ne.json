@@ -1,0 +1,11 @@
+{
+    "auth": {
+        "login": "लग इन",
+        "signup": "साइन अप"
+    },
+    "changetheme":"arko theme",
+    "next": "अगाडि",
+    "continue": "जारी राख्नुहोस्",
+    "toggletheme": "Arko Theme"
+
+}

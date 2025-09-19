@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430589318075",
+    "project_id": "ordersaman-dev",
+    "storage_bucket": "ordersaman-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430589318075:android:8ecaf819b38c17b28aea9e",
+        "android_client_info": {
+          "package_name": "com.user.ordersaman"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC72dJjf4umbTxcEq4q7tVcbAfp6gtg2yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

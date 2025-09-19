@@ -1,0 +1,14 @@
+{
+    "auth":{
+"login": "Log In",
+"signup": "Sign Up"
+    },
+    "changetheme":"Change Theme",
+    "next": "Next",
+    "continue": "Continue",
+    "toggletheme": "Toggle Theme",
+    "verify":"Verify",
+    "onboardingtitle":"Lorem Ipsum is simply dummy text of the",
+    "onboardingdescription":"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+
+}
